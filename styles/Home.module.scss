@@ -1,0 +1,29 @@
+@import "mixins";
+
+$color-primary: blueviolet;
+
+.xcontainer {
+  width: 100%;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+
+  h1 {
+    color: darkblue;
+  }
+
+  nav {
+    width: -webkit-fill-available;
+  }
+}
+
+.grid {
+  @include desktop() {
+    width: 100%;
+    flex-direction: column;
+  }
+}

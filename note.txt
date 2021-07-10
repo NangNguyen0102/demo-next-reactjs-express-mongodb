@@ -1,0 +1,4 @@
+1. Install NodeJs
+2. Install Yarn
+3. Create skeleton next app as below (open terminal):
+npx create-next-app project-name
