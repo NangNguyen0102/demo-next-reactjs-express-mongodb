@@ -8,7 +8,11 @@ mongoose.set("useCreateIndex", true);
 const connect = async () => {
   try {
     await mongoose.connect(connectURI, {
+      //useNewUrlParser: true,
+      //useUnifiedTopology: true,
       useNewUrlParser: true,
+      useCreateIndex: true,
+      useFindAndModify: false,
       useUnifiedTopology: true,
     });
 
