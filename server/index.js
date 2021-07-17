@@ -35,6 +35,10 @@ app
     server.use("/api/todo", bodyParser, todoRouter(server));
     server.use("/api/product", bodyParser, product);
 
+    // Middleware to handle errors
+    const errorMiddleware = require("./middlewares/errors");
+    server.use(errorMiddleware);
+
     // all other requests will be handled by the Next App
     server.get("*", (req, res) => {
       return handler(req, res);

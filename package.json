@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "SET NODE_ENV=development& nodemon server/index.js",
+    "prod": "SET NODE_ENV=production& nodemon server/index.js",
     "build": "next build",
     "start": "node server/index.js",
     "lint": "next lint",
