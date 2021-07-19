@@ -2,8 +2,9 @@ const Product = require("../model/schemas/product");
 
 const catchAsyncError = require("../middlewares/catchAsyncError");
 const ErrorHandler = require("../utils/errorHandler");
+const APIFeatures = require("../utils/apiFeatures");
 
-// create new product => api/product/new
+// create new product => api/products/new
 exports.newProduct = catchAsyncError(async (req, res, next) => {
   const product = await Product.create(req.body);
   res.status(201).json({
@@ -12,9 +13,14 @@ exports.newProduct = catchAsyncError(async (req, res, next) => {
   });
 });
 
-// get all products => api/product/all
+// get all products => api/products?keyword=apple
 exports.getProducts = catchAsyncError(async (req, res, next) => {
-  const products = await Product.find();
+  const apiFeatures = new APIFeatures(Product.find(), req.query)
+    .search()
+    .filter()
+    .pagination(4);
+
+  const products = await apiFeatures.query;
 
   res.status(200).json({
     success: true,
@@ -23,7 +29,7 @@ exports.getProducts = catchAsyncError(async (req, res, next) => {
   });
 });
 
-// get single product => /api/product/:id
+// get single product => /api/products/:id
 exports.getSingleProduct = catchAsyncError(async (req, res, next) => {
   const product = await Product.findById(req.params.id);
 
@@ -37,7 +43,7 @@ exports.getSingleProduct = catchAsyncError(async (req, res, next) => {
   });
 });
 
-// Update product => /api/product/:id
+// Update product => /api/products/:id
 exports.updateProduct = catchAsyncError(async (req, res, next) => {
   let product = await Product.findById(req.params.id);
 
@@ -57,7 +63,7 @@ exports.updateProduct = catchAsyncError(async (req, res, next) => {
   });
 });
 
-// Delete product => /api/product/:id
+// Delete product => /api/products/:id
 exports.deleteProduct = catchAsyncError(async (req, res, next) => {
   const product = await Product.findById(req.params.id);
 

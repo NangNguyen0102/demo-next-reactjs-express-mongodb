@@ -33,7 +33,7 @@ app
     server.use("/api", routes(server));
     server.use("/api/auth", bodyParser, authRouter(server));
     server.use("/api/todo", bodyParser, todoRouter(server));
-    server.use("/api/product", bodyParser, product);
+    server.use("/api/products", bodyParser, product);
 
     // Middleware to handle errors
     const errorMiddleware = require("./middlewares/errors");
@@ -53,8 +53,24 @@ app
         `Server started on PORT: ${PORT} in ${process.env.NODE_ENV} mode.`
       );
     });
+
+    // Handle Unhandled Promise Rejection
+    process.on("unhandledRejection", (err) => {
+      console.log(`An error occured: ${err.message}`);
+      console.log(
+        "Shutting down the server due to Unhandled Promise Rejection"
+      );
+      process.exit(1);
+    });
+
+    // Handle Uncaught exception
+    process.on("uncaughtException", (err) => {
+      console.log("ERROR: ", err.stack);
+      console.log("Shutting down due to uncaught exception");
+      process.exit(1);
+    });
   })
   .catch((error) => {
-    console.log(error);
+    console.log(`An error occured: ${error}`);
     process.exit(1);
   });
