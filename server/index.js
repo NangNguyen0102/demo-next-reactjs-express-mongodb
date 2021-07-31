@@ -20,20 +20,25 @@ app
   .prepare()
   .then(() => {
     const server = express();
+    const cookieParser = require("cookie-parser");
 
     // Import all routes
     const routes = require("./routes/index.js");
     const authRouter = require("./routes/auth-router.js");
     const todoRouter = require("./routes/todo-router.js");
     const product = require("./routes/product");
+    const auth = require("./routes/auth");
 
     server.use(cors());
+    server.use(cookieParser());
 
     // all requests made to /api will be handled by routes()
     server.use("/api", routes(server));
     server.use("/api/auth", bodyParser, authRouter(server));
     server.use("/api/todo", bodyParser, todoRouter(server));
-    server.use("/api/products", bodyParser, product);
+
+    server.use("/api/v1", bodyParser, product);
+    server.use("/api/v1", bodyParser, auth);
 
     // Middleware to handle errors
     const errorMiddleware = require("./middlewares/errors");

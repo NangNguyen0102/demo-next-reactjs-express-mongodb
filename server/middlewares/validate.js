@@ -5,7 +5,7 @@ module.exports = (req, res, next) => {
   //console.log("req.headers", req.headers);
 
   if (token) {
-    jwt.verify(token, process.env.SECRET, (error) => {
+    jwt.verify(token, process.env.JWT_SECRET, (error) => {
       if (error) {
         res.status(401).json({ success: false, error: error.message });
       } else {
