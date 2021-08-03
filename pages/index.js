@@ -1,8 +1,10 @@
 import Head from "next/head";
 import Header from "./components/Header";
+import Header1 from "./components/layout/Header";
 import Image from "next/image";
 import logo from "./assets/reactjs.png";
 import styles from "../styles/Home.module.scss";
+import "../styles/ShopIT.scss";
 
 export default function Home() {
   return (
@@ -15,6 +17,7 @@ export default function Home() {
 
       <main>
         <div className={styles.main}>
+          <Header1 />
           <Header />
           <h1 className={styles.title}>Home Page</h1>
           <Image src={logo} />
